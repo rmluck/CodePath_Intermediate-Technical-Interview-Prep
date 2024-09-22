@@ -73,6 +73,7 @@ def reverse_list(lst: list) -> list:
 # lst = ["pooh", "christopher robin", "piglet", "roo", "eeyore"]
 # print(reverse_list(lst))
 
+
 # Problem 3: Remove Duplicates
 def remove_dupes(items: list) -> int:
     """
