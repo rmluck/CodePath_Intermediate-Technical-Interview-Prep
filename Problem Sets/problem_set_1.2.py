@@ -16,20 +16,31 @@ def transpose(matrix: list[list[int]]) -> list[list[int]]:
     Returns:
         list[list[int]]: transpose of matrix
     """
-    pass
+
+    matrix_size = len(matrix[0])
+    transposed_matrix = []
+    for _ in range(matrix_size):
+        transposed_matrix.append([])
+
+    for i in range(len(matrix)):
+        for j in range(matrix_size):
+            transposed_matrix[j].append(matrix[i][j])
+    
+    return transposed_matrix
+            
 
 # matrix = [
 #     [1, 2, 3],
 #     [4, 5, 6],
 #     [7, 8, 9]
 # ]
-# transpose(matrix)
+# print(transpose(matrix))
 
 # matrix = [
 #     [1, 2, 3],
 #     [4, 5, 6]
 # ]
-# transpose(matrix)
+# print(transpose(matrix))
 
 
 # Problem 2: Two-Pointer Reverse List
@@ -44,10 +55,23 @@ def reverse_list(lst: list) -> list:
     Returns:
         list: elements of lst in reverse order
     """
-    pass
+    
+    i = 0
+    j = len(lst) - 1
+    while i < j:
+        element1 = lst[i]
+        element2 = lst[j]
+        lst[i] = element2
+        lst[j] = element1
+
+        i += 1
+        j -= 1
+    
+    return lst
+
 
 # lst = ["pooh", "christopher robin", "piglet", "roo", "eeyore"]
-# reverse_list(lst)
+# print(reverse_list(lst))
 
 # Problem 3: Remove Duplicates
 def remove_dupes(items: list) -> int:
@@ -60,13 +84,20 @@ def remove_dupes(items: list) -> int:
     Returns:
         length of modified array after duplicates have been removed in-place
     """
-    pass
+    
+    i = 0
+    for j in range(1, len(items)):
+        if items[i] != items[j]:
+            i += 1
+            items[i] = items[j]
+
+    return i + 1
 
 # items = ["extract of malt", "haycorns", "honey", "thistle", "thistle"]
-# remove_dupes(items)
+# print(remove_dupes(items))
 
 # items = ["extract of malt", "haycorns", "honey", "thistle"]
-# remove_dupes(items)
+# print(remove_dupes(items))
 
 
 # Problem 4: Sort Array by Parity
@@ -81,13 +112,24 @@ def sort_by_parity(nums: list[int]) -> list:
     Returns:
         list: any array that satisfies condition
     """
-    pass
+
+    even_numbers = []
+    odd_numbers = []
+    
+    for num in nums:
+        if num % 2 == 0:
+            even_numbers.append(num)
+        else:
+            odd_numbers.append(num)
+    
+    return even_numbers + odd_numbers
+
 
 # nums = [3, 1, 2, 4]
-# sort_by_parity(nums)
+# print(sort_by_parity(nums))
 
 # nums = [0]
-# sort_by_parity(nums)
+# print(sort_by_parity(nums))
 
 
 # Problem 5: Container with Most Honey
@@ -123,13 +165,26 @@ def merge_intervals(intervals: list[list[int]]) -> list[list[int]]:
     Returns:
         list[list[int]]: array of non-overlapping intervals that cover all intervals in input
     """
-    pass
+
+    new_intervals = []
+    
+    current_interval = intervals[0]
+    for interval in intervals[1:]:
+        if current_interval[1] > interval[0]:
+            current_interval[1] = interval[1]
+        else:
+            new_intervals.append(current_interval)
+            current_interval = interval
+    new_intervals.append(current_interval)
+    
+    return new_intervals
+
 
 # intervals = [[1, 3], [2, 6], [8, 10], [15, 18]]
-# merge_intervals(intervals)
+# print(merge_intervals(intervals))
 
 # intervals = [[1, 4], [4, 5]]
-# merge_intervals(intervals)
+# print(merge_intervals(intervals))
 
 
 ## ADVANCED PROBLEM SET VERSION 2
@@ -146,7 +201,12 @@ def add_matrices(matrix1: list[list[int]], matrix2: list[list[int]]) -> list[lis
     Returns:
         list[list[int]]: n x m matrix that is sum of given matrices at each value
     """
-    pass
+    
+    for i in range(len(matrix2)):
+        for j in range(len(matrix2[i])):
+            matrix1[i][j] += matrix2[i][j]
+    
+    return matrix1
 
 # matrix1 = [
 #     [1, 2, 3],
@@ -160,7 +220,7 @@ def add_matrices(matrix1: list[list[int]], matrix2: list[list[int]]) -> list[lis
 #     [3, 2, 1]
 # ]
 
-# add_matrices(matrix1, matrix2)
+# print(add_matrices(matrix1, matrix2))
 
 
 # Problem 2: Two-Pointer Palindrome
@@ -175,13 +235,22 @@ def is_palindrome(s: str) -> bool:
     Returns:
         bool: whether string is palindrome
     """
-    pass
+    
+    i = 0
+    j = len(s) - 1
+    while i < len(s):
+        if s[i] != s[j]:
+            return False
+        i += 1
+        j -= 1
+    
+    return True
 
 # s = "madam"
-# is_palindrome(s)
+# print(is_palindrome(s))
 
 # s = "madamweb"
-# is_palindrome(s)
+# print(is_palindrome(s))
 
 
 # Problem 3: Squash Spaces
@@ -195,13 +264,26 @@ def squash_spaces(s: str) -> str:
     Returns:
         str: string with each substring with consecutive spaces reduced to single space
     """
-    pass
+
+    new_string = ""
+    space = False
+    for c in s:
+        if c == " ":
+            if space == False:
+                new_string += c
+                space = True
+        else:
+            new_string += c
+            space = False
+
+    return new_string
+
 
 # s = "   Up,     up,   and  away! "
-# squash_spaces(s)
+# print(squash_spaces(s))
 
 # s = "With great power comes great responsibility."
-# squash_spaces(s)
+# print(squash_spaces(s))
 
 
 # Problem 4: Two-Pointer Two Sum
@@ -216,15 +298,19 @@ def two_sum(nums: list[int], target: int) -> list[int]:
     Returns:
         list[int]: indices of two numbers that add up to target
     """
-    pass
+    
+    for i in range(len(nums)):
+        for j in range(len(nums)):
+            if i != j and nums[i] + nums[j] == target:
+                return [i, j]
 
 # nums = [2, 7, 11, 15]
 # target = 9
-# two_sum(nums, target)
+# print(two_sum(nums, target))
 
 # nums = [2, 7, 11, 15]
 # target = 18
-# two_sum(nums, target)
+# print(two_sum(nums, target))
 
 
 # Problem 5: Three Sum
@@ -238,16 +324,25 @@ def three_sum(nums: list[int]) -> list[list[int]]:
     Returns:
         list[list[int]]: all triplets [nums[i], nums[j], nums[k]] such that i != j, i != k, and j != k, and nums[i] + nums[j] + nums[k] == 0
     """
-    pass
+    
+    nums = sorted(nums)
+    sums = []
+    for i in range(len(nums)):
+        for j in range(len(nums)):
+            for k in range(len(nums)):
+                if i != j and i != k and j != k and nums[i] + nums[j] + nums[k] == 0 and [nums[i], nums[j], nums[k]] not in sums:
+                    sums.append([nums[i], nums[j], nums[k]])
+
+    return sums
 
 # nums = [-1, 0, 1, 2, -1, -4]
-# three_sum(nums)
+# print(three_sum(nums))
 
 # nums = [0, 1, 1]
-# three_sum(nums)
+# print(three_sum(nums))
 
 # nums = [0, 0, 0]
-# three_sum(nums)
+# print(three_sum(nums))
 
 
 # Problem 6: Insert Interval
